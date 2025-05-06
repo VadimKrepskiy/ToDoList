@@ -11,16 +11,21 @@ function App() {
     ])
     const [filter, setFilter] = useState<FilterValues>('all')
 
-    const deleteTask = (id: string) => {
-        setTasks(tasks.filter((task) => task.id !== id))
-    }
-    const changeFilter = (filter: FilterValues) => {
-        setFilter(filter)
-    }
-
     const createTask = (title: string) => {
         const newTask = { id: v1(), title, isDone: false }
         setTasks([newTask,...tasks])
+    }
+
+    const deleteTask = (id: string) => {
+        setTasks(tasks.filter((task) => task.id !== id))
+    }
+
+    const changeTaskStatus = (id: string, isDone: boolean) => {
+        setTasks(tasks.map(task => task.id === id ? {...task, isDone} : task))
+    }
+
+    const changeFilter = (filter: FilterValues) => {
+        setFilter(filter)
     }
 
     let filteredTasks = tasks
@@ -37,9 +42,11 @@ function App() {
             <TodolistItem
                 title={'What to learn'}
                 tasks={filteredTasks}
-                deleteTask={deleteTask}
-                changeFilter={changeFilter}
                 createTask={createTask}
+                deleteTask={deleteTask}
+                changeTaskStatus={changeTaskStatus}
+                changeFilter={changeFilter}
+                filter={filter}
             />
         </div>
     )
