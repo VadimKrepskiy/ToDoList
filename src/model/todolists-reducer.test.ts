@@ -1,6 +1,6 @@
 import { beforeEach, expect, test } from 'vitest'
-import {v1} from 'uuid';
 import {Todolist} from '../TodolistItem.tsx';
+import {nanoid} from '@reduxjs/toolkit'
 import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
@@ -15,8 +15,8 @@ let todolistId2: string
 let startState: Todolist[] = []
 
 beforeEach(() => {
-    todolistId1 = v1()
-    todolistId2 = v1()
+    todolistId1 = nanoid()
+    todolistId2 = nanoid()
 
     startState = [
         {id: todolistId1, title: 'What to learn', filter: 'all'},
@@ -25,7 +25,7 @@ beforeEach(() => {
 })
 
 test('correct todolist should be deleted', () => {
-    const endState = todolistsReducer(startState, deleteTodolistAC(todolistId1))
+    const endState = todolistsReducer(startState, deleteTodolistAC({id:todolistId1}))
 
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe(todolistId2)
