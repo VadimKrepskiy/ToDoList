@@ -1,10 +1,10 @@
 import './App.css'
-import {CssBaseline, ThemeProvider} from '@mui/material';
-import {useAppSelector} from './hooks/useAppSelector';
-import {getTheme} from '@/common/theme/theme';
-import {selectThemeMode} from '@/app/app-selectors';
-import {Header} from '@/common/components/Header/Header';
-import { Main } from '@/common/components/Main/Main';
+import {CssBaseline, ThemeProvider} from '@mui/material'
+import {useAppSelector} from './hooks/useAppSelector'
+import {getTheme} from '@/common/theme/theme'
+import {selectThemeMode} from '@/app/app-selectors'
+import {Header} from '@/common/components/Header/Header'
+import { Main } from '@/app/Main'
 
 
 export type Task = {

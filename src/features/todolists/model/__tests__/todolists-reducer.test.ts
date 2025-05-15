@@ -1,5 +1,5 @@
 import { beforeEach, expect, test } from 'vitest'
-import {Todolist} from '@/TodolistItem.tsx';
+import {Todolist} from '@/features/todolists/ui/Todolists/TodolistItem/TodolistItem.tsx'
 import {nanoid} from '@reduxjs/toolkit'
 import {
     changeTodolistFilterAC,
@@ -7,7 +7,7 @@ import {
     createTodolistAC,
     deleteTodolistAC,
     todolistsReducer
-} from './todolists-reducer.ts';
+} from '../todolists-reducer.ts'
 
 let todolistId1: string
 let todolistId2: string

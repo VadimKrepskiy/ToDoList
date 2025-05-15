@@ -2,9 +2,9 @@ import {Container, Grid} from '@mui/material'
 import {CreateItemForm} from '@/common/components/CreateItemForm/CreateItemForm'
 import {
     createTodolistAC
-} from '@/model/todolists-reducer';
-import {useAppDispatch} from '@/app/hooks/useAppDispatch';
-import {Todolists} from '@/Todolists';
+} from '@/features/todolists/model/todolists-reducer'
+import {useAppDispatch} from '@/app/hooks/useAppDispatch'
+import {Todolists} from '@/features/todolists/ui/Todolists/Todolists'
 
 export const Main = () => {
     const dispatch = useAppDispatch()

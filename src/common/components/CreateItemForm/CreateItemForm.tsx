@@ -1,22 +1,22 @@
 import {IconButton, TextField} from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-import {ChangeEvent, type KeyboardEvent, useState} from 'react';
+import {ChangeEvent, type KeyboardEvent, useState} from 'react'
 
 type Props = {
     onCreateItem: (title: string) => void
 }
 
 export const CreateItemForm = ({onCreateItem}: Props) => {
-    const [title, setTitle] = useState<string>('');
+    const [title, setTitle] = useState<string>('')
 
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null)
 
     const onCreateItemHandler = () => {
-        const trimmedTitle = title.trim();
+        const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
             onCreateItem(trimmedTitle)
         } else {
-            setError('Title is required');
+            setError('Title is required')
         }
     }
     const createItemTitleOnEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {

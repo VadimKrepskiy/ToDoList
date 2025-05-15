@@ -1,9 +1,10 @@
-import {EditableSpan} from '@/EditableSpan';
-import {Todolist} from '@/TodolistItem';
-import IconButton from '@mui/material/IconButton';
-import {changeTodolistTitleAC, deleteTodolistAC} from '@/model/todolists-reducer';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {useAppDispatch} from '@/app/hooks/useAppDispatch';
+import {EditableSpan} from '@/common/components/EditableSpan/EditableSpan'
+import {Todolist} from '@/features/todolists/ui/Todolists/TodolistItem/TodolistItem'
+import IconButton from '@mui/material/IconButton'
+import {changeTodolistTitleAC, deleteTodolistAC} from '@/features/todolists/model/todolists-reducer'
+import DeleteIcon from '@mui/icons-material/Delete'
+import {useAppDispatch} from '@/app/hooks/useAppDispatch'
+import styles from './TodolistTitle.module.css'
 
 type Props = {
     todolist: Todolist
@@ -21,7 +22,7 @@ export const TodolistTitle = ({todolist}: Props) => {
         dispatch(deleteTodolistAC({id}))
     }
     return (
-        <div className={'container'}>
+        <div className={styles.container}>
             <h3>
                 <EditableSpan value={title} onChange={changeTodolistTitle}/>
             </h3>
