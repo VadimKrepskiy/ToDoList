@@ -4,6 +4,8 @@ import {CreateItemForm} from '@/common/components'
 import {EditableSpan} from '@/common/components'
 import {Todolist} from '@/features/todolists/api'
 import {todolistsApi} from '@/features/todolists/api'
+import {tasksApi} from '@/features/todolists/api/tasksApi'
+import {DomainTask} from '@/features/todolists/api/tasksApi.types'
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
@@ -11,7 +13,13 @@ export const AppHttpRequests = () => {
 
     useEffect(() => {
         todolistsApi.getTodolists().then(res => {
-            setTodolists(res.data)
+            const todolists = res.data
+            setTodolists(todolists)
+            todolists.forEach((todolist) => {
+                tasksApi.getTasks(todolist.id).then((res) => {
+                    setTasks({...tasks, [todolist.id]: res.data.items})
+                })
+            })
         })
     }, [])
 
@@ -19,12 +27,14 @@ export const AppHttpRequests = () => {
         todolistsApi.createTodolist(title).then(res => {
             const newTodolist = res.data.data.item
             setTodolists([...todolists, newTodolist])
+            setTasks({...tasks, [newTodolist.id]: []})
         })
     }
 
     const deleteTodolist = (id: string) => {
         todolistsApi.deleteTodolist(id).then(() => {
             setTodolists(todolists.filter(todolist => todolist.id !== id))
+            delete tasks[id]
         })
     }
 
@@ -34,9 +44,18 @@ export const AppHttpRequests = () => {
         })
     }
 
-    const createTask = (todolistId: string, title: string) => {}
+    const createTask = (todolistId: string, title: string) => {
+        return tasksApi.createTask({todolistId, title}).then(res => {
+            const newTask = res.data.data.item
+            setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+        })
+    }
 
-    const deleteTask = (todolistId: string, taskId: string) => {}
+    const deleteTask = (todolistId: string, taskId: string) => {
+        return tasksApi.deleteTask({todolistId, taskId}).then(() => {
+            setTasks({...tasks, [todolistId]: tasks.filter(task => task.id !== taskId)})
+        })
+    }
 
     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>, task: any) => {}
 
