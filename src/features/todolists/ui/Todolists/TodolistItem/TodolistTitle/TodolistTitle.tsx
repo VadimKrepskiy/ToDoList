@@ -1,9 +1,9 @@
-import {EditableSpan} from '@/common/components/EditableSpan/EditableSpan'
-import {Todolist} from '@/features/todolists/ui/Todolists/TodolistItem/TodolistItem'
+import {EditableSpan} from '@/common/components'
+import {Todolist} from '@/features/todolists/ui'
 import IconButton from '@mui/material/IconButton'
-import {changeTodolistTitleAC, deleteTodolistAC} from '@/features/todolists/model/todolists-reducer'
+import {changeTodolistTitleAC, deleteTodolistAC} from '@/features/todolists/model'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {useAppDispatch} from '@/app/hooks/useAppDispatch'
+import {useAppDispatch} from '@/common/hooks'
 import styles from './TodolistTitle.module.css'
 
 type Props = {

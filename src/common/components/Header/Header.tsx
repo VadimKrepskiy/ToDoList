@@ -1,13 +1,13 @@
 import {AppBar, Container, Switch, Toolbar} from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import {NavButton} from '@/common/components/NavButton/NavButton'
-import {useAppSelector} from '@/app/hooks/useAppSelector'
-import {selectThemeMode} from '@/app/app-selectors'
-import {getTheme} from '@/common/theme/theme'
-import {changeThemeModeAC} from '@/app/app-reducer'
-import {useAppDispatch} from '@/app/hooks/useAppDispatch'
-import {containerSx} from '@/common/styles/container.styles'
+import {NavButton} from '@/common/components'
+import {useAppSelector} from '@/common/hooks'
+import {selectThemeMode} from '@/app'
+import {getTheme} from '@/common/theme'
+import {changeThemeModeAC} from '@/app'
+import {useAppDispatch} from '@/common/hooks'
+import {containerSx} from '@/common/styles'
 
 
 export const Header = () => {

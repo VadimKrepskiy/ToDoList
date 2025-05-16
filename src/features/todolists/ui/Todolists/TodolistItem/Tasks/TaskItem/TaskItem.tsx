@@ -1,11 +1,11 @@
 import {Checkbox, ListItem} from '@mui/material'
 
-import {EditableSpan} from '@/common/components/EditableSpan/EditableSpan'
+import {EditableSpan} from '@/common/components'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from '@/features/todolists/model/tasks-reducer'
 import {ChangeEvent} from 'react'
-import {useAppDispatch} from '@/app/hooks/useAppDispatch'
+import {useAppDispatch} from '@/common/hooks'
 import {getListItemSx} from './TaskItem.styles'
 
 export type Task = {

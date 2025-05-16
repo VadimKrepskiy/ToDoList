@@ -3,7 +3,7 @@ import {CreateItemForm} from '@/common/components/CreateItemForm/CreateItemForm'
 import {
     createTodolistAC
 } from '@/features/todolists/model/todolists-reducer'
-import {useAppDispatch} from '@/app/hooks/useAppDispatch'
+import {useAppDispatch} from '@/common/hooks/useAppDispatch'
 import {Todolists} from '@/features/todolists/ui/Todolists/Todolists'
 
 export const Main = () => {
