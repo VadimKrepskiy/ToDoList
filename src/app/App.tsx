@@ -5,15 +5,16 @@ import {getTheme} from '@/common/theme/theme'
 import {selectThemeMode} from '@/app'
 import {Header} from '@/common/components/Header/Header'
 import { Main } from '@/app/Main'
+import {DomainTask} from '@/features/todolists/api/tasksApi.types.ts'
 
 
-export type Task = {
-    id: string
-    title: string
-    isDone: boolean
-}
+// export type Task = {
+//     id: string
+//     title: string
+//     isDone: boolean
+// }
 
-export type TasksState = Record<string, Task[]>
+export type TasksState = Record<string, DomainTask[]>
 
 function App() {
     const themeMode = useAppSelector(selectThemeMode)

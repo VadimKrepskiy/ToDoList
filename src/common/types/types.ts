@@ -9,3 +9,5 @@ export type BaseResponse<T = {}> = {
     message: string[]
     resultCode: number
 }
+
+export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'

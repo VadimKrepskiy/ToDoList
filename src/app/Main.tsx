@@ -1,7 +1,7 @@
 import {Container, Grid} from '@mui/material'
 import {CreateItemForm} from '@/common/components/CreateItemForm/CreateItemForm'
 import {
-    createTodolistAC
+    createTodolistTC
 } from '@/features/todolists/model/todolists-slice.ts'
 import {useAppDispatch} from '@/common/hooks/useAppDispatch'
 import {Todolists} from '@/features/todolists/ui/Todolists/Todolists'
@@ -10,7 +10,7 @@ export const Main = () => {
     const dispatch = useAppDispatch()
 
     const createTodolist = (title: string) => {
-        dispatch(createTodolistAC(title))
+        dispatch(createTodolistTC(title))
     }
     return (
         <Container maxWidth="lg">
