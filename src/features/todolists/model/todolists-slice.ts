@@ -1,7 +1,7 @@
 import {FilterValues} from '@/features/todolists/ui'
 import {Todolist, todolistsApi} from '@/features/todolists/api'
 import {createAppSlice} from '@/common/utils'
-import {setAppStatusAC} from '@/app'
+import {setAppStatusAC} from '@/app/app-slice'
 
 export const todolistsSlice = createAppSlice({
     name: 'todolists',
@@ -18,6 +18,7 @@ export const todolistsSlice = createAppSlice({
                     dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return {todolists: res.data}
                 } catch (error) {
+                    dispatch(setAppStatusAC({ status: 'failed' }))
                     return rejectWithValue(null)
                 }
             },
@@ -30,27 +31,33 @@ export const todolistsSlice = createAppSlice({
             },
         ),
         createTodolistTC: create.asyncThunk(
-            async (title: string, thunkAPI) => {
+            async (title: string, { dispatch, rejectWithValue }) => {
                 try {
+                    dispatch(setAppStatusAC({ status: 'loading' }))
                     const res = await todolistsApi.createTodolist(title)
+                    dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return {todolist: res.data.data.item}
                 } catch (error) {
-                    return thunkAPI.rejectWithValue(null)
+                    dispatch(setAppStatusAC({ status: 'failed' }))
+                    return rejectWithValue(null)
                 }
             },
             {
                 fulfilled: (state, action) => {
-                    state.push({...action.payload.todolist, filter: 'all'})
+                    state.unshift({...action.payload.todolist, filter: 'all'})
                 }
             },
         ),
         deleteTodolistTC: create.asyncThunk(
-            async (id: string, thunkAPI) => {
+            async (id: string, { dispatch, rejectWithValue }) => {
                 try {
+                    dispatch(setAppStatusAC({ status: 'loading' }))
                     await todolistsApi.deleteTodolist(id)
+                    dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return { id }
                 } catch (error) {
-                    return thunkAPI.rejectWithValue(null)
+                    dispatch(setAppStatusAC({ status: 'failed' }))
+                    return rejectWithValue(null)
                 }
             },
             {
@@ -63,12 +70,15 @@ export const todolistsSlice = createAppSlice({
             },
         ),
         changeTodolistFilterTC: create.asyncThunk(
-            async (payload: {id: string; filter: FilterValues}, thunkAPI) => {
+            async (payload: {id: string; filter: FilterValues}, { dispatch, rejectWithValue }) => {
                 try {
+                    dispatch(setAppStatusAC({ status: 'loading' }))
                     await todolistsApi.changeTodolistFilter(payload)
+                    dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return payload
                 } catch (error) {
-                    return thunkAPI.rejectWithValue(null)
+                    dispatch(setAppStatusAC({ status: 'failed' }))
+                    return rejectWithValue(null)
                 }
             },
             {
@@ -81,12 +91,15 @@ export const todolistsSlice = createAppSlice({
             },
         ),
         changeTodolistTitleTC: create.asyncThunk(
-            async (payload: { id: string; title: string }, thunkAPI) => {
+            async (payload: { id: string; title: string }, { dispatch, rejectWithValue }) => {
                 try {
+                    dispatch(setAppStatusAC({ status: 'loading' }))
                     await todolistsApi.changeTodolistTitle(payload)
+                    dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return payload
                 } catch (error) {
-                    return thunkAPI.rejectWithValue(null)
+                    dispatch(setAppStatusAC({ status: 'failed' }))
+                    return rejectWithValue(null)
                 }
             },
             {
