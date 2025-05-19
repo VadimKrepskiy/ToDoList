@@ -1,4 +1,2 @@
-export * from './todolists-reducer'
-export * from './tasks-reducer'
-export * from './tasks-selectors'
-export * from './todolists-selectors'
+export * from './todolists-slice.ts'
+export * from './tasks-slice.ts'

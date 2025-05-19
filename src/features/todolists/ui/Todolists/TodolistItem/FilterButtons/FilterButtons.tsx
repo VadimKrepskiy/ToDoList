@@ -1,7 +1,7 @@
 import {Box} from '@mui/material'
 import Button from '@mui/material/Button'
 import {FilterValues, Todolist} from '@/features/todolists/ui'
-import {changeTodolistFilterAC} from '@/features/todolists/model'
+import {changeTodolistFilterTC} from '@/features/todolists/model'
 import {useDispatch} from 'react-redux'
 import { containerSx } from '@/common/styles'
 
@@ -15,7 +15,7 @@ export const FilterButtons = ({todolist}: Props) => {
     const dispatch = useDispatch()
 
     const changeTodolistFilter = (filter: FilterValues) => {
-        dispatch(changeTodolistFilterAC({id, filter}))
+        dispatch(changeTodolistFilterTC({id, filter}))
     }
     return (
         <div>

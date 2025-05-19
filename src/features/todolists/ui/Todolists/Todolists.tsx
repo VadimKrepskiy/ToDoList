@@ -1,11 +1,17 @@
 import {Grid, Paper} from '@mui/material'
 import {TodolistItem} from '@/features/todolists/ui'
-import {useAppSelector} from '@/common/hooks'
-import {selectTodolists} from '@/features/todolists/model'
+import {useAppDispatch, useAppSelector} from '@/common/hooks'
+import {fetchTodolistsTC, selectTodolists} from '@/features/todolists/model'
+import {useEffect} from 'react'
 
 export const Todolists = () => {
     const todolists = useAppSelector(selectTodolists)
 
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTodolistsTC())
+    }, [])
     return (
             <>
                 {todolists.map(todolist => {

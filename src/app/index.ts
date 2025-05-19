@@ -1,4 +1,3 @@
-export * from './app-reducer'
-export * from './app-selectors'
+export * from './app-slice.ts'
 export * from './store'
 export * from './App'

@@ -1,5 +1,5 @@
 import {CreateItemForm} from '@/common/components'
-import {createTaskAC} from '@/features/todolists/model'
+import {createTaskTC} from '@/features/todolists/model'
 import {useAppDispatch} from '@/common/hooks'
 import {TodolistTitle, FilterButtons, Tasks} from '@/features/todolists/ui'
 
@@ -23,7 +23,7 @@ export const TodolistItem = ({todolist}: Props) => {
     const dispatch = useAppDispatch()
 
     const createTask = (title: string) => {
-        dispatch(createTaskAC({todolistId: id, title}))
+        dispatch(createTaskTC({todolistId: id, title}))
     }
 
     return (
