@@ -1,3 +1,5 @@
+import {ResultCode} from '@/common/enums'
+
 export type FieldError = {
     error: string
     field: string
@@ -6,8 +8,8 @@ export type FieldError = {
 export type BaseResponse<T = {}> = {
     data: T
     fieldsErrors: FieldError[]
-    message: string[]
-    resultCode: number
+    messages: string[]
+    resultCode: ResultCode
 }
 
 export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'

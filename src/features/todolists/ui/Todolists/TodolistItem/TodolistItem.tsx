@@ -1,5 +1,5 @@
 import {CreateItemForm} from '@/common/components'
-import {createTaskTC} from '@/features/todolists/model'
+import {createTaskTC, DomainTodolist} from '@/features/todolists/model'
 import {useAppDispatch} from '@/common/hooks'
 import {TodolistTitle, FilterButtons, Tasks} from '@/features/todolists/ui'
 
@@ -12,7 +12,7 @@ export type Todolist = {
 export type FilterValues = 'all' | 'active' | 'completed'
 
 type Props = {
-    todolist: Todolist
+    todolist: DomainTodolist
 }
 
 export const TodolistItem = ({todolist}: Props) => {
@@ -29,7 +29,7 @@ export const TodolistItem = ({todolist}: Props) => {
     return (
         <div>
             <TodolistTitle todolist={todolist}/>
-            <CreateItemForm onCreateItem={createTask}/>
+            <CreateItemForm onCreateItem={createTask} disabled={todolist.entityStatus === 'loading'}/>
             <Tasks todolist={todolist}/>
             <FilterButtons todolist={todolist}/>
         </div>

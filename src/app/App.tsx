@@ -6,13 +6,8 @@ import {selectThemeMode} from '@/app/app-slice'
 import {Header} from '@/common/components/Header/Header'
 import { Main } from '@/app/Main'
 import {DomainTask} from '@/features/todolists/api/tasksApi.types.ts'
+import {ErrorSnackbar} from '@/common/components/ErrorSnackbar/ErrorSnackbar'
 
-
-// export type Task = {
-//     id: string
-//     title: string
-//     isDone: boolean
-// }
 
 export type TasksState = Record<string, DomainTask[]>
 
@@ -27,6 +22,7 @@ function App() {
                 <CssBaseline/>
                 <Header/>
                 <Main/>
+                <ErrorSnackbar/>
             </div>
         </ThemeProvider>
     )
