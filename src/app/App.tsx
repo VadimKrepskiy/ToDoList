@@ -4,9 +4,9 @@ import {useAppSelector} from '@/common/hooks/useAppSelector'
 import {getTheme} from '@/common/theme/theme'
 import {selectThemeMode} from '@/app/app-slice'
 import {Header} from '@/common/components/Header/Header'
-import { Main } from '@/app/Main'
 import {DomainTask} from '@/features/todolists/api/tasksApi.types.ts'
 import {ErrorSnackbar} from '@/common/components/ErrorSnackbar/ErrorSnackbar'
+import {Routing} from '@/common/routing/Routing'
 
 
 export type TasksState = Record<string, DomainTask[]>
@@ -21,7 +21,7 @@ function App() {
             <div className="app">
                 <CssBaseline/>
                 <Header/>
-                <Main/>
+                <Routing />
                 <ErrorSnackbar/>
             </div>
         </ThemeProvider>
