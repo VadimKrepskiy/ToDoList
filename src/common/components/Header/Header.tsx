@@ -8,6 +8,7 @@ import {getTheme} from '@/common/theme'
 import {changeThemeModeAC} from '@/app/app-slice'
 import {useAppDispatch} from '@/common/hooks'
 import {containerSx} from '@/common/styles'
+import {logoutTC, selectIsLoggedIn} from '@/features/auth/model/auth-slice'
 
 
 export const Header = () => {
@@ -18,8 +19,13 @@ export const Header = () => {
 
     const theme = getTheme(themeMode)
 
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
     const changeMode = () => {
         dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
+    }
+    const logout = () => {
+        dispatch(logoutTC())
     }
     return (
         <AppBar position="static" sx={{mb: '30px'}}>
@@ -29,16 +35,13 @@ export const Header = () => {
                         <MenuIcon/>
                     </IconButton>
                     <div>
-                        <NavButton>Sign in</NavButton>
-                        <NavButton>Sign up</NavButton>
+                        {isLoggedIn && <NavButton onClick={logout}>Sign out</NavButton>}
                         <NavButton background={theme.palette.primary.dark}>Faq</NavButton>
                         <Switch color={'default'} onChange={changeMode}/>
                     </div>
                 </Container>
             </Toolbar>
-            {
-                status === 'loading' && <LinearProgress />
-            }
+            {status === 'loading' && <LinearProgress />}
         </AppBar>
     )
 }

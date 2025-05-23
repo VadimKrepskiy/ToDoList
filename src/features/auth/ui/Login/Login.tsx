@@ -1,12 +1,15 @@
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material'
 import {getTheme} from '@/common/theme'
-import {useAppSelector} from '@/common/hooks'
+import {useAppDispatch, useAppSelector} from '@/common/hooks'
 import {selectThemeMode} from '@/app/app-slice'
 import Button from '@mui/material/Button'
 import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import styles from './Login.module.css'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Inputs, loginSchema} from '@/features/auth/lib/schemas'
+import {loginTC, selectIsLoggedIn} from '@/features/auth/model/auth-slice'
+import {Navigate} from 'react-router'
+import {Path} from '@/common/routing'
 
 export const Login = () => {
     const themeMode = useAppSelector(selectThemeMode)
@@ -23,8 +26,16 @@ export const Login = () => {
         defaultValues: { email: '', password: '', rememberMe: false }
     })
 
+    const dispatch = useAppDispatch()
+
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
     const onSubmit: SubmitHandler<Inputs> = data => {
+        dispatch(loginTC(data))
         reset()
+    }
+    if (isLoggedIn) {
+        return <Navigate to={Path.Main}/>
     }
     return (
         <Grid container justifyContent={'center'}>
@@ -68,9 +79,7 @@ export const Login = () => {
                                 <Controller
                                     name={'rememberMe'}
                                     control={control}
-                                    render={({ field: { value, onChange}}) => (
-                                        <Checkbox onChange={e => onChange(e.target.value)} checked={value} />
-                                    )}
+                                    render={({ field: { value, ...field } }) => <Checkbox {...field} checked={value} />}
                                 />
                             }
                             />
