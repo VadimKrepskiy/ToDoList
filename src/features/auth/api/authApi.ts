@@ -17,7 +17,7 @@ export const authApi = baseApi.injectEndpoints({
         logout: build.mutation<BaseResponse, void>({
             query: () => ({
                 url: 'auth/login',
-                method: 'POST',
+                method: 'DELETE',
             })
         }),
     })

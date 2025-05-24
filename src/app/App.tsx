@@ -4,7 +4,6 @@ import {useAppSelector} from '@/common/hooks/useAppSelector'
 import {getTheme} from '@/common/theme/theme'
 import {selectThemeMode, setIsLoggedInAC} from '@/app/app-slice'
 import {Header} from '@/common/components/Header/Header'
-import {DomainTask} from '@/features/todolists/api/tasksApi.types.ts'
 import {ErrorSnackbar} from '@/common/components/ErrorSnackbar/ErrorSnackbar'
 import {Routing} from '@/common/routing/Routing'
 import {useAppDispatch} from '@/common/hooks'
@@ -12,10 +11,7 @@ import {useEffect, useState} from 'react'
 import {useMeQuery} from '@/features/auth/api/authApi.ts'
 import {ResultCode} from '@/common/enums'
 
-
-export type TasksState = Record<string, DomainTask[]>
-
-function App() {
+export const App = ()=> {
     const themeMode = useAppSelector(selectThemeMode)
 
     const theme = getTheme(themeMode)
@@ -52,5 +48,3 @@ function App() {
         </ThemeProvider>
     )
 }
-
-export default App

@@ -9,7 +9,7 @@ import {containerSx} from '@/common/styles'
 import {useLogoutMutation} from '@/features/auth/api/authApi.ts'
 import {ResultCode} from '@/common/enums'
 import {AUTH_TOKEN} from '@/common/constants'
-import {clearDataAC} from '@/common/actions'
+import {baseApi} from '@/app/baseApi.ts'
 
 
 export const Header = () => {
@@ -31,9 +31,11 @@ export const Header = () => {
             if(res.data?.resultCode === ResultCode.Success){
                 dispatch(setIsLoggedInAC({isLoggedIn: false}))
                 localStorage.removeItem(AUTH_TOKEN)
-                dispatch(clearDataAC())
             }
         })
+            .then(() => {
+                dispatch(baseApi.util.invalidateTags(['Todolist', 'Tasks']))
+            })
     }
     return (
         <AppBar position="static" sx={{mb: '30px'}}>

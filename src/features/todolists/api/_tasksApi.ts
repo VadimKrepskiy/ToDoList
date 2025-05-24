@@ -21,7 +21,7 @@ export const _tasksApi = {
     },
 }
 
-export const taskApi = baseApi.injectEndpoints({
+export const tasksApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getTasks: build.query<GetTasksResponse, string>({
             query: (todolistId) => `todo-lists/${todolistId}/tasks`,
@@ -53,4 +53,4 @@ export const taskApi = baseApi.injectEndpoints({
     })
 })
 
-export const {useGetTasksQuery, useAddTaskMutation, useRemoveTaskMutation, useUpdateTaskMutation} = taskApi
+export const {useGetTasksQuery, useAddTaskMutation, useRemoveTaskMutation, useUpdateTaskMutation} = tasksApi

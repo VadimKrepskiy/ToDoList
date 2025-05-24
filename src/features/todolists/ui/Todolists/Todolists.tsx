@@ -1,20 +1,26 @@
-import {Grid, Paper} from '@mui/material'
+import {Box, Grid, Paper} from '@mui/material'
 import {TodolistItem} from '@/features/todolists/ui'
-import {useLazyGetTodolistsQuery} from '@/features/todolists/api/_todolistsApi.ts'
+import {useGetTodolistsQuery} from '@/features/todolists/api/_todolistsApi.ts'
+import {containerSx} from '@/common/styles'
+import {TodolistSkeleton} from '@/features/todolists/ui/Todolists/TodolistSkeleton/TodolistSkeleton.tsx'
 
 export const Todolists = () => {
 
-    const [trigger, { data: todolists }] = useLazyGetTodolistsQuery()
+    const { data: todolists, isLoading } = useGetTodolistsQuery()
 
-    const fetchTodolists = () => {
-        trigger()
+    if(isLoading) {
+        return (
+            <Box sx={containerSx} style={{ gap: '32px' }}>
+                {Array(3)
+                    .fill(null)
+                    .map((_, id) => (
+                        <TodolistSkeleton key={id} />
+                    ))}
+            </Box>
+        )
     }
-
     return (
             <>
-                <div>
-                    <button onClick={fetchTodolists}>Download todolists</button>
-                </div>
                 {todolists?.map(todolist => {
                     return (
                         <Grid key={todolist.id}>

@@ -1,9 +1,10 @@
 import {instance} from '@/common/instance/instance'
 import {Todolist} from '@/features/todolists/api/todolistsApi.types'
 import {BaseResponse} from '@/common/types'
-import {FilterValues} from '@/features/todolists/ui'
-import {DomainTodolist} from '@/features/todolists/model'
+
+
 import {baseApi} from '@/app/baseApi.ts'
+import {DomainTodolist, FilterValues} from '@/features/todolists/lib/types'
 
 export const _todolistsApi = {
     getTodolists() {
@@ -25,9 +26,9 @@ export const _todolistsApi = {
     }
 }
 
-export const todolistApi = baseApi.injectEndpoints({
+export const todolistsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getTodolists: build.query<any[], void>({
+        getTodolists: build.query<DomainTodolist[], void>({
             query: () => 'todo-lists',
             transformResponse: (todolists: Todolist[]): DomainTodolist[] =>
                 todolists.map(todolist => ({...todolist, filter: 'all', entityStatus: 'idle'})),
@@ -60,8 +61,8 @@ export const todolistApi = baseApi.injectEndpoints({
 })
 
 export const {
-    useLazyGetTodolistsQuery,
+    useGetTodolistsQuery,
     useAddTodolistMutation,
     useRemoveTodolistMutation,
     useUpdateTodolistTitleMutation
-} = todolistApi
+} = todolistsApi
