@@ -1,9 +1,9 @@
 import {EditableSpan} from '@/common/components'
 import IconButton from '@mui/material/IconButton'
-import {changeTodolistTitleTC, deleteTodolistTC, DomainTodolist} from '@/features/todolists/model'
+import {DomainTodolist} from '@/features/todolists/model'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {useAppDispatch} from '@/common/hooks'
 import styles from './TodolistTitle.module.css'
+import {useRemoveTodolistMutation, useUpdateTodolistTitleMutation} from '@/features/todolists/api/_todolistsApi.ts'
 
 type Props = {
     todolist: DomainTodolist
@@ -13,21 +13,24 @@ export const TodolistTitle = ({todolist}: Props) => {
 
     const disabled = entityStatus === "loading"
 
-    const dispatch = useAppDispatch()
+    const [removeTodolist] = useRemoveTodolistMutation()
+
+    const [updateTodolistTitle] = useUpdateTodolistTitleMutation()
 
     const changeTodolistTitle = (title: string) => {
-        dispatch(changeTodolistTitleTC({id, title}))
+        updateTodolistTitle({id, title})
     }
 
-    const deleteTodolistHandler = () => {
-        dispatch(deleteTodolistTC(id))
+    const deleteTodolist = () => {
+        removeTodolist(id)
     }
+
     return (
         <div className={styles.container}>
             <h3>
                 <EditableSpan value={title} onChange={changeTodolistTitle} disabled={disabled}/>
             </h3>
-            <IconButton onClick={deleteTodolistHandler} disabled={disabled}>
+            <IconButton onClick={deleteTodolist} disabled={disabled}>
                 <DeleteIcon/>
             </IconButton>
         </div>

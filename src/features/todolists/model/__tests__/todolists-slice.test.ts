@@ -7,7 +7,7 @@ import {
     deleteTodolistTC,
     type DomainTodolist,
     todolistsReducer,
-} from "../todolists-slice"
+} from "../todolists-slice.ts"
 
 let todolistId1: string
 let todolistId2: string

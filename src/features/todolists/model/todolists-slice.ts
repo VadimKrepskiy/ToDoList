@@ -1,8 +1,9 @@
 import {FilterValues} from '@/features/todolists/ui'
-import {Todolist, todolistsApi} from '@/features/todolists/api'
+import {Todolist, _todolistsApi} from '@/features/todolists/api'
 import {createAppSlice} from '@/common/utils'
 import {setAppStatusAC} from '@/app/app-slice'
 import {RequestStatus} from '@/common/types'
+import {clearDataAC} from '@/common/actions'
 
 export const todolistsSlice = createAppSlice({
     name: 'todolists',
@@ -10,12 +11,17 @@ export const todolistsSlice = createAppSlice({
     selectors: {
         selectTodolists: state => state,
     },
+    extraReducers: builder => {
+        builder.addCase(clearDataAC, () => {
+            return [] as DomainTodolist[]
+        })
+    },
     reducers: create => ({
         fetchTodolistsTC: create.asyncThunk(
             async (_, { dispatch, rejectWithValue }) => {
                 try {
                     dispatch(setAppStatusAC({ status: 'loading' }))
-                    const res = await todolistsApi.getTodolists()
+                    const res = await _todolistsApi.getTodolists()
                     dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return {todolists: res.data}
                 } catch (error) {
@@ -35,7 +41,7 @@ export const todolistsSlice = createAppSlice({
             async (title: string, { dispatch, rejectWithValue }) => {
                 try {
                     dispatch(setAppStatusAC({ status: 'loading' }))
-                    const res = await todolistsApi.createTodolist(title)
+                    const res = await _todolistsApi.createTodolist(title)
                     dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return {todolist: res.data.data.item}
                 } catch (error) {
@@ -54,7 +60,7 @@ export const todolistsSlice = createAppSlice({
                 try {
                     dispatch(setAppStatusAC({ status: 'loading' }))
                     dispatch(changeTodolistStatusAC({id, entityStatus: 'loading'}))
-                    await todolistsApi.deleteTodolist(id)
+                    await _todolistsApi.deleteTodolist(id)
                     dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return { id }
                 } catch (error) {
@@ -75,7 +81,7 @@ export const todolistsSlice = createAppSlice({
             async (payload: {id: string; filter: FilterValues}, { dispatch, rejectWithValue }) => {
                 try {
                     dispatch(setAppStatusAC({ status: 'loading' }))
-                    await todolistsApi.changeTodolistFilter(payload)
+                    await _todolistsApi.changeTodolistFilter(payload)
                     dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return payload
                 } catch (error) {
@@ -96,7 +102,7 @@ export const todolistsSlice = createAppSlice({
             async (payload: { id: string; title: string }, { dispatch, rejectWithValue }) => {
                 try {
                     dispatch(setAppStatusAC({ status: 'loading' }))
-                    await todolistsApi.changeTodolistTitle(payload)
+                    await _todolistsApi.changeTodolistTitle(payload)
                     dispatch(setAppStatusAC({ status: 'succeeded' }))
                     return payload
                 } catch (error) {

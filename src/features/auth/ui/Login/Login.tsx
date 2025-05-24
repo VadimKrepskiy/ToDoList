@@ -1,19 +1,21 @@
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material'
 import {getTheme} from '@/common/theme'
 import {useAppDispatch, useAppSelector} from '@/common/hooks'
-import {selectThemeMode} from '@/app/app-slice'
+import {selectThemeMode, setIsLoggedInAC} from '@/app/app-slice'
 import Button from '@mui/material/Button'
 import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import styles from './Login.module.css'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Inputs, loginSchema} from '@/features/auth/lib/schemas'
-import {loginTC, selectIsLoggedIn} from '@/features/auth/model/auth-slice'
-import {Navigate} from 'react-router'
-import {Path} from '@/common/routing'
+import {useLoginMutation} from '@/features/auth/api/authApi.ts'
+import {ResultCode} from '@/common/enums'
+import {AUTH_TOKEN} from '@/common/constants'
 
 export const Login = () => {
     const themeMode = useAppSelector(selectThemeMode)
     const theme = getTheme(themeMode)
+
+    const [login] = useLoginMutation()
 
     const {
         register,
@@ -28,14 +30,14 @@ export const Login = () => {
 
     const dispatch = useAppDispatch()
 
-    const isLoggedIn = useAppSelector(selectIsLoggedIn)
-
     const onSubmit: SubmitHandler<Inputs> = data => {
-        dispatch(loginTC(data))
-        reset()
-    }
-    if (isLoggedIn) {
-        return <Navigate to={Path.Main}/>
+        login(data).then(res => {
+            if(res.data?.resultCode === ResultCode.Success){
+                dispatch(setIsLoggedInAC({ isLoggedIn: true }))
+                localStorage.setItem(AUTH_TOKEN, res.data.data.token)
+                reset()
+            }
+        })
     }
     return (
         <Grid container justifyContent={'center'}>

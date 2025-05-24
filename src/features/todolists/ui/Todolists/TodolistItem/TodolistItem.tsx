@@ -1,7 +1,7 @@
 import {CreateItemForm} from '@/common/components'
-import {createTaskTC, DomainTodolist} from '@/features/todolists/model'
-import {useAppDispatch} from '@/common/hooks'
+import {DomainTodolist} from '@/features/todolists/model'
 import {TodolistTitle, FilterButtons, Tasks} from '@/features/todolists/ui'
+import {useAddTaskMutation} from '@/features/todolists/api/_tasksApi.ts'
 
 export type Todolist = {
     id: string
@@ -18,12 +18,10 @@ type Props = {
 export const TodolistItem = ({todolist}: Props) => {
     const {id} = todolist
 
-
-
-    const dispatch = useAppDispatch()
+    const [addTask] = useAddTaskMutation()
 
     const createTask = (title: string) => {
-        dispatch(createTaskTC({todolistId: id, title}))
+        addTask({todolistId: id, title})
     }
 
     return (
