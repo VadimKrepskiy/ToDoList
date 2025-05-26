@@ -1,12 +1,15 @@
 import {Box, Grid, Paper} from '@mui/material'
 import {TodolistItem} from '@/features/todolists/ui'
-import {useGetTodolistsQuery} from '@/features/todolists/api/_todolistsApi.ts'
+import {useGetTodolistsQuery} from '@/features/todolists/api/todolistsApi.ts'
 import {containerSx} from '@/common/styles'
 import {TodolistSkeleton} from '@/features/todolists/ui/Todolists/TodolistSkeleton/TodolistSkeleton.tsx'
 
 export const Todolists = () => {
 
-    const { data: todolists, isLoading } = useGetTodolistsQuery()
+    const { data: todolists, isLoading } = useGetTodolistsQuery(undefined,{
+        pollingInterval: 3000,
+        skipPollingIfUnfocused: true
+    })
 
     if(isLoading) {
         return (

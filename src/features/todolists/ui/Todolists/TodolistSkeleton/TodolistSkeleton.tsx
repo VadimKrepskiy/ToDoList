@@ -1,4 +1,3 @@
-
 import {Box, Paper, Skeleton} from '@mui/material'
 import styles from './TodolistSkeleton.module.css'
 import {containerSx} from '@/common/styles'

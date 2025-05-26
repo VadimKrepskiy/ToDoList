@@ -34,7 +34,7 @@ export const Header = () => {
             }
         })
             .then(() => {
-                dispatch(baseApi.util.invalidateTags(['Todolist', 'Tasks']))
+                dispatch(baseApi.util.invalidateTags(['Todolist', 'Task']))
             })
     }
     return (

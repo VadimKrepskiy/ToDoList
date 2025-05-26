@@ -1,9 +1,10 @@
-import {createSlice, isFulfilled, isPending, isRejected} from '@reduxjs/toolkit'
+import {isFulfilled, isPending, isRejected} from '@reduxjs/toolkit'
 import {RequestStatus} from '@/common/types'
-import {todolistsApi} from '@/features/todolists/api/_todolistsApi.ts'
-import {tasksApi} from '@/features/todolists/api/_tasksApi.ts'
+import {todolistsApi} from '@/features/todolists/api/todolistsApi'
+import {tasksApi} from '@/features/todolists/api/tasksApi'
+import {createAppSlice} from '@/common/utils'
 
-export const appSlice = createSlice({
+export const appSlice = createAppSlice({
     name: 'app',
     initialState: {
         themeMode: 'light' as ThemeMode,

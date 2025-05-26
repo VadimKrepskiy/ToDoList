@@ -4,7 +4,7 @@ import {Todolists} from '@/features/todolists/ui/Todolists/Todolists'
 import {useAppSelector} from '@/common/hooks'
 import {Navigate} from 'react-router'
 import {Path} from '@/common/routing'
-import {useAddTodolistMutation} from '@/features/todolists/api/_todolistsApi.ts'
+import {useAddTodolistMutation} from '@/features/todolists/api/todolistsApi.ts'
 import {selectIsLoggedIn} from '@/app/app-slice.ts'
 
 export const Main = () => {

@@ -1,13 +1,7 @@
 import {CreateItemForm} from '@/common/components'
 import {TodolistTitle, FilterButtons, Tasks} from '@/features/todolists/ui'
-import {useAddTaskMutation} from '@/features/todolists/api/_tasksApi.ts'
-import {DomainTodolist, FilterValues} from '@/features/todolists/lib/types'
-
-export type Todolist = {
-    id: string
-    title: string
-    filter: FilterValues
-}
+import {useAddTaskMutation} from '@/features/todolists/api/tasksApi.ts'
+import {DomainTodolist} from '@/features/todolists/lib/types'
 
 type Props = {
     todolist: DomainTodolist
