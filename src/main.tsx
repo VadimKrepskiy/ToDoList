@@ -6,7 +6,7 @@ import {App} from '@/app/App.tsx'
 import {BrowserRouter} from 'react-router'
 
 createRoot(document.getElementById('root')!).render(
-    <BrowserRouter basename='/todo-list'>
+    <BrowserRouter>
         <Provider store={store}>
             <App />
         </Provider>
