@@ -10,12 +10,17 @@ import {Inputs, loginSchema} from '@/features/auth/lib/schemas'
 import {useLoginMutation} from '@/features/auth/api/authApi.ts'
 import {ResultCode} from '@/common/enums'
 import {AUTH_TOKEN} from '@/common/constants'
+import {useGetCaptchaUrlQuery} from '@/features/auth/api/securityApi'
 
 export const Login = () => {
     const themeMode = useAppSelector(selectThemeMode)
     const theme = getTheme(themeMode)
 
     const [login] = useLoginMutation()
+
+    const {data} = useGetCaptchaUrlQuery()
+
+    const captchaUrl = data?.url
 
     const {
         register,
@@ -25,15 +30,15 @@ export const Login = () => {
         formState: {errors},
     } = useForm<Inputs>({
         resolver: zodResolver(loginSchema),
-        defaultValues: { email: '', password: '', rememberMe: false }
+        defaultValues: {email: '', password: '', rememberMe: false}
     })
 
     const dispatch = useAppDispatch()
 
     const onSubmit: SubmitHandler<Inputs> = data => {
         login(data).then(res => {
-            if(res.data?.resultCode === ResultCode.Success){
-                dispatch(setIsLoggedInAC({ isLoggedIn: true }))
+            if (res.data?.resultCode === ResultCode.Success) {
+                dispatch(setIsLoggedInAC({isLoggedIn: true}))
                 localStorage.setItem(AUTH_TOKEN, res.data.data.token)
                 reset()
             }
@@ -73,6 +78,7 @@ export const Login = () => {
                         <TextField type='password'
                                    label='Password'
                                    margin='normal'
+                                   error={!!errors.password}
                                    {...register('password')}/>
                         {errors.password && (<span className={styles.errorMessage}>{errors.password.message}</span>)}
                         <FormControlLabel
@@ -81,10 +87,20 @@ export const Login = () => {
                                 <Controller
                                     name={'rememberMe'}
                                     control={control}
-                                    render={({ field: { value, ...field } }) => <Checkbox {...field} checked={value} />}
+                                    render={({field: {value, ...field}}) => <Checkbox {...field} checked={value}/>}
                                 />
                             }
+                        />
+                        {captchaUrl && <>
+                            <img src={captchaUrl} alt='captcha'/>
+                            <TextField type={'text'}
+                                       label={'Symbols from image'}
+                                       margin={'normal'}
+                                       error={!!errors.captcha}
+                                       {...register('captcha')}
                             />
+                            {errors.captcha && (<span className={styles.errorMessage}>{errors.captcha.message}</span>)}
+                        </>}
                         <Button type='submit' variant='contained' color='primary'>
                             Login
                         </Button>
