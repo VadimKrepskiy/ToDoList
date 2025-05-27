@@ -1,7 +1,7 @@
 import {Box} from '@mui/material'
 import Button from '@mui/material/Button'
 import { containerSx } from '@/common/styles'
-import {todolistsApi} from '@/features/todolists/api/todolistsApi.ts'
+import {todolistsApi} from '@/features/todolists/api'
 import {useAppDispatch} from '@/common/hooks'
 import {DomainTodolist, FilterValues} from '@/features/todolists/lib/types'
 

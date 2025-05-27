@@ -1,4 +1,4 @@
-import {Todolist} from '@/features/todolists/api/todolistsApi.types'
+import {Todolist} from '@/features/todolists/api'
 import {BaseResponse} from '@/common/types'
 import {baseApi} from '@/app/baseApi'
 import {DomainTodolist} from '@/features/todolists/lib/types'

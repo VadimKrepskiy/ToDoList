@@ -1,2 +1,2 @@
-export {_todolistsApi} from './todolistsApi.ts'
+export * from './todolistsApi'
 export * from './todolistsApi.types'

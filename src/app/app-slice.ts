@@ -1,6 +1,6 @@
 import {isFulfilled, isPending, isRejected} from '@reduxjs/toolkit'
 import {RequestStatus} from '@/common/types'
-import {todolistsApi} from '@/features/todolists/api/todolistsApi'
+import {todolistsApi} from '@/features/todolists/api'
 import {tasksApi} from '@/features/todolists/api/tasksApi'
 import {createAppSlice} from '@/common/utils'
 

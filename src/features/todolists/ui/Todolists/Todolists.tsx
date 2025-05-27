@@ -1,6 +1,6 @@
 import {Box, Grid, Paper} from '@mui/material'
 import {TodolistItem} from '@/features/todolists/ui'
-import {useGetTodolistsQuery} from '@/features/todolists/api/todolistsApi.ts'
+import {useGetTodolistsQuery} from '@/features/todolists/api'
 import {containerSx} from '@/common/styles'
 import {TodolistSkeleton} from '@/features/todolists/ui/Todolists/TodolistSkeleton/TodolistSkeleton.tsx'
 
